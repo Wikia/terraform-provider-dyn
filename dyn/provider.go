@@ -33,6 +33,7 @@ func Provider() terraform.ResourceProvider {
 
 		ResourcesMap: map[string]*schema.Resource{
 			"dyn_record": resourceDynRecord(),
+			"dyn_zone":   resourceDynZone(),
 		},
 
 		ConfigureFunc: providerConfigure,
