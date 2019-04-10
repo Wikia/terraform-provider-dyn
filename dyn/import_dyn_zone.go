@@ -27,7 +27,6 @@ func resourceDynZoneImportState(d *schema.ResourceData, meta interface{}) ([]*sc
 		Type: zoneType,
 	}
 
-	// If we already have the record ID, use it for the lookup
 	err := client.GetZone(zone)
 
 	if err != nil {
