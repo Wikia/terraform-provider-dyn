@@ -36,8 +36,8 @@ func resourceDynZone() *schema.Resource {
 				Default:  "increment",
 				ValidateFunc: func(val interface{}, key string) (warns []string, errs []error) {
 					v := val.(string)
-					if v != "increment" || v != "epoch" || v != "day" || v != "minute" {
-						errs = append(errs, fmt.Errorf("%q allowed values are increment, epoch, day or minute, got: %d", key, v))
+					if v != "increment" && v != "epoch" && v != "day" && v != "minute" {
+						errs = append(errs, fmt.Errorf("%q allowed values are increment, epoch, day or minute, got: %s", key, v))
 					}
 					return
 				},
