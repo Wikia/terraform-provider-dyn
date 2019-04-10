@@ -7,13 +7,13 @@ import (
 	"github.com/nesv/go-dynect/dynect"
 )
 
-func resourceDynZone() *schema.Resource {
+func resourceDynZonePrimary() *schema.Resource {
 	return &schema.Resource{
-		Create: resourceDynZoneCreate,
-		Read:   resourceDynZoneRead,
-		Delete: resourceDynZoneDelete,
+		Create: resourceDynZonePrimaryCreate,
+		Read:   resourceDynZonePrimaryRead,
+		Delete: resourceDynZonePrimaryDelete,
 		Importer: &schema.ResourceImporter{
-			State: resourceDynZoneImportState,
+			State: resourceDynZonePrimaryImportState,
 		},
 
 		Schema: map[string]*schema.Schema{
@@ -50,8 +50,7 @@ func resourceDynZone() *schema.Resource {
 
 			"type": {
 				Type:     schema.TypeString,
-				ForceNew: true,
-				Required: true,
+				Computed: true,
 			},
 
 			"ttl": {
@@ -63,7 +62,7 @@ func resourceDynZone() *schema.Resource {
 		},
 	}
 }
-func resourceDynZoneCreate(d *schema.ResourceData, meta interface{}) error {
+func resourceDynZonePrimaryCreate(d *schema.ResourceData, meta interface{}) error {
 	mutex.Lock()
 
 	client := meta.(*dynect.ConvenientClient)
@@ -85,10 +84,10 @@ func resourceDynZoneCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	mutex.Unlock()
-	return resourceDynZoneRead(d, meta)
+	return resourceDynZonePrimaryRead(d, meta)
 }
 
-func resourceDynZoneRead(d *schema.ResourceData, meta interface{}) error {
+func resourceDynZonePrimaryRead(d *schema.ResourceData, meta interface{}) error {
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -115,7 +114,7 @@ func resourceDynZoneRead(d *schema.ResourceData, meta interface{}) error {
 	return nil
 }
 
-func resourceDynZoneDelete(d *schema.ResourceData, meta interface{}) error {
+func resourceDynZonePrimaryDelete(d *schema.ResourceData, meta interface{}) error {
 	mutex.Lock()
 	defer mutex.Unlock()
 
