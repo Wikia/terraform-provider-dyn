@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/hashicorp/terraform/helper/logging"
-	"github.com/nesv/go-dynect/dynect"
+	"github.com/Wikia/go-dynect/dynect"
 )
 
 type Config struct {

@@ -28,7 +28,7 @@
 		},
 		{
 			"checksumSHA1": "otqTI4AhIRqE7NXc2TueoyJoA1w=",
-			"path": "github.com/nesv/go-dynect/dynect",
+			"path": "github.com/Wikia/go-dynect/dynect",
 			"revision": "cdd946344b54bdf7dbeac406c2f1fe93150f08ea",
 			"revisionTime": "2018-01-09T22:56:14Z"
 		},
