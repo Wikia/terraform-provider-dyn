@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/nesv/go-dynect/dynect"
+	"github.com/Wikia/go-dynect/dynect"
 )
 
 func resourceDynZonePrimary() *schema.Resource {
