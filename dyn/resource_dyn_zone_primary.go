@@ -3,8 +3,8 @@ package dyn
 import (
 	"fmt"
 
-	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/Wikia/go-dynect/dynect"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 func resourceDynZonePrimary() *schema.Resource {

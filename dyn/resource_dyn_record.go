@@ -6,8 +6,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/Wikia/go-dynect/dynect"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 var mutex = &sync.Mutex{}

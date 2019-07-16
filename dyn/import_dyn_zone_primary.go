@@ -1,8 +1,8 @@
 package dyn
 
 import (
-	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/Wikia/go-dynect/dynect"
+	"github.com/hashicorp/terraform/helper/schema"
 )
 
 func resourceDynZonePrimaryImportState(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {

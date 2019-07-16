@@ -5,9 +5,9 @@ import (
 	"os"
 	"testing"
 
+	"github.com/Wikia/go-dynect/dynect"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/Wikia/go-dynect/dynect"
 )
 
 func TestAccDynZonePrimaryBasic(t *testing.T) {
