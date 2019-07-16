@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/Wikia/go-dynect/dynect"
 	"github.com/hashicorp/terraform/helper/logging"
-	"github.com/nesv/go-dynect/dynect"
 )
 
 type Config struct {

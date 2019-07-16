@@ -46,7 +46,7 @@ func handleJobRedirect(req *http.Request, via []*http.Request) error {
 type Client struct {
 	Token        string
 	CustomerName string
-	transport    *http.Transport
+	Transport    http.RoundTripper
 	verbose      bool
 }
 
@@ -54,8 +54,13 @@ type Client struct {
 func NewClient(customerName string) *Client {
 	return &Client{
 		CustomerName: customerName,
-		transport:    &http.Transport{Proxy: http.ProxyFromEnvironment},
+		Transport:    &http.Transport{Proxy: http.ProxyFromEnvironment},
 	}
+}
+
+// Sets the transport for the client.
+func (c *Client) SetTransport(t http.RoundTripper) {
+	c.Transport = t
 }
 
 // Enable, or disable verbose output from the client.
@@ -152,7 +157,7 @@ func (c *Client) Do(method, endpoint string, requestData, responseData interface
 	}
 
 	var resp *http.Response
-	resp, err = c.transport.RoundTrip(req)
+	resp, err = c.Transport.RoundTrip(req)
 
 	if err != nil {
 		if c.verbose {
@@ -219,7 +224,7 @@ func (c *Client) Do(method, endpoint string, requestData, responseData interface
 		for {
 			select {
 			case <-time.After(PollingInterval):
-				resp, err := c.transport.RoundTrip(req)
+				resp, err := c.Transport.RoundTrip(req)
 				if err != nil {
 					return err
 				}

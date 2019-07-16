@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/Wikia/go-dynect/dynect"
 	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/nesv/go-dynect/dynect"
 )
 
 func resourceDynRecordImportState(d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
