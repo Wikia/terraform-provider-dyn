@@ -14,6 +14,8 @@ func TestAccDynZonePrimaryBasic(t *testing.T) {
 	var zone dynect.Zone
 	name := os.Getenv("DYN_ZONE")
 
+	testAccDeleteTestDynZone(name, t)
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
@@ -38,6 +40,8 @@ func TestAccDynZonePrimaryBasic(t *testing.T) {
 func TestAccDynZonePrimaryTTL(t *testing.T) {
 	var zone dynect.Zone
 	name := os.Getenv("DYN_ZONE")
+
+	testAccDeleteTestDynZone(name, t)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -66,6 +70,8 @@ func TestAccDynZonePrimarySerialStyleEpoch(t *testing.T) {
 	var zone dynect.Zone
 	name := os.Getenv("DYN_ZONE")
 
+	testAccDeleteTestDynZone(name, t)
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
@@ -93,6 +99,8 @@ func TestAccDynZonePrimarySerialStyleDay(t *testing.T) {
 	var zone dynect.Zone
 	name := os.Getenv("DYN_ZONE")
 
+	testAccDeleteTestDynZone(name, t)
+
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
 		Providers:    testAccProviders,
@@ -119,6 +127,8 @@ func TestAccDynZonePrimarySerialStyleDay(t *testing.T) {
 func TestAccDynZonePrimarySerialStyleMinute(t *testing.T) {
 	var zone dynect.Zone
 	name := os.Getenv("DYN_ZONE")
+
+	testAccDeleteTestDynZone(name, t)
 
 	resource.Test(t, resource.TestCase{
 		PreCheck:     func() { testAccPreCheck(t) },
@@ -201,18 +211,32 @@ func testAccCheckDynZonePrimaryExists(n string, record *dynect.Zone) resource.Te
 	}
 }
 
+func testAccDeleteTestDynZone(name string, t *testing.T) {
+
+	client := testAccProvider.Meta().(*dynect.ConvenientClient)
+	foundZone := &dynect.Zone{
+		Zone: name,
+	}
+	err := client.GetZone(foundZone)
+	if err == nil {
+		err := client.DeleteZone(name)
+		if err != nil {
+			t.Logf("%s", err)
+			t.Fail()
+		}
+	}
+}
+
 const testAccCheckDynZonePrimaryConfigBasic = `
 resource "dyn_zone_primary" "foobar" {
 	name = "%s"
 	mailbox = "test@terraform.com"
-	type = "Primary"
 }`
 
 const testAccCheckDynZonePrimaryConfigTTL = `
 resource "dyn_zone_primary" "foobar" {
 	name = "%s"
 	mailbox = "test@terraform.com"
-	type = "Primary"
 	ttl = "60"
 }`
 
@@ -221,7 +245,6 @@ resource "dyn_zone_primary" "foobar" {
 	name = "%s"
 	mailbox = "test@terraform.com"
 	serial_style = "epoch"
-	type = "Primary"
 }`
 
 const testAccCheckDynZonePrimaryConfigSerialStyleDay = `
@@ -229,7 +252,6 @@ resource "dyn_zone_primary" "foobar" {
 	name = "%s"
 	mailbox = "test@terraform.com"
 	serial_style = "day"
-	type = "Primary"
 }`
 
 const testAccCheckDynZonePrimaryConfigSerialStyleMinute = `
@@ -237,5 +259,4 @@ resource "dyn_zone_primary" "foobar" {
 	name = "%s"
 	mailbox = "test@terraform.com"
 	serial_style = "minute"
-	type = "Primary"
 }`
